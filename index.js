@@ -99,7 +99,7 @@ const leankit_client = function (base_url, base64Auth) {
 
 async function run() {
   console.log("Running action");
-  console.log(payload);
+  console.log(github.context.payload);
   try {
     // Get the JSON webhook payload for the event that triggered the workflow
     const payload = github.context.payload;
