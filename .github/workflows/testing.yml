@@ -1,0 +1,27 @@
+name: Workflow tester
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags' 
+
+jobs:
+  test_stuff:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Action: ${{ github.event.action }}" 
+        echo "Login: ${{ github.event.pull_request.user.login }}"
+        echo "Title: ${{ github.event.pull_request.title }}" 
+        echo "Body: ${{ github.event.pull_request.body }}" 
+        echo "URL: ${{ github.event.pull_request.html_url }}" 
+        echo "One: ${{ github.event.inputs.one }}" 
+        echo "Two: ${{ github.event.inputs.two }}" 
+      with:
+        one: ${{ github.event.inputs.logLevel }}
+        two: ${{ github.event.inputs.tags }}
