@@ -1,0 +1,14 @@
+name: Workflow tester
+on:
+  pull_request:
+
+jobs:
+  test_stuff:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Action: ${{ github.event.action }}" 
+        echo "Login: ${{ github.event.pull_request.user.login }}"
+        echo "Title: ${{ github.event.pull_request.title }}" 
+        echo "Body: ${{ github.event.pull_request.body }}" 
+        echo "URL: ${{ github.event.pull_request.html_url }}" 

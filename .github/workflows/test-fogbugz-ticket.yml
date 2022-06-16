@@ -1,0 +1,30 @@
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        required: true
+        description: "Project"
+      category:
+        required: true
+        description: "Category"
+      title:
+        required: true
+        description: "Title"
+      text:
+        required: true
+        description: "The body text for the case."
+
+jobs:
+  create_case:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open Case
+        id: open_case
+        uses: ./fogbugs-ticket-test/
+        with:
+          api_url: "https://fb.arpcdev.net/api"
+          token: ${{ secrets.FOGBUGZ_API_TOKEN }}
+          project: ${{ github.event.inputs.project }}
+          category: ${{ github.event.inputs.category }}
+          title: ${{ github.event.inputs.title }}
+          text: ${{ github.event.inputs.text }}
