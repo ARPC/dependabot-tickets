@@ -13924,7 +13924,7 @@ async function run() {
       const fbc = new fogbuz_client(core.getInput("fogbugz_api_url"), core.getInput("fogbugz_token"));
       const project = core.getInput("fogbugz_project");
       const subproject = core.getInput("fogbugz_subproject");
-      const title = !!subproject ? subpoject + " - " + payload.pull_request.title : payload.pull_request.title;
+      const title = !!subproject ? subproject + " - " + payload.pull_request.title : payload.pull_request.title;
       const text = payload.pull_request.body;
       const category = core.getInput("fogbugz_category");
 
