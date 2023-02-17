@@ -10,9 +10,9 @@ inputs:
   fogbugz_project:
     required: true
     description: "Fogbugz Project"
-  fogbugz_sub_project:
+  fogbugz_subproject:
     required: false
-    description: "Subproject Name for Fogbugz Project"
+    description: "Subproject Name for Fogbugz Project (this simply prepends the text to the ticket/case names)"
   fogbugz_category:
     required: true
     description: "Fogbugz Category"
