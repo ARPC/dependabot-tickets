@@ -1,12 +1,12 @@
 const axios = require("axios");
 
-const PlanviewClient = function (base_url, base64Auth) {
-  const cardUrl = base_url + "/card";
+const PlanviewClient = (base_url, base64Auth) => {
+  const cardUrl = `${base_url}/card`;
   const config = {
     headers: {
-      "Accept": "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json",
-      "Authorization": "bearer " + base64Auth
+      Authorization: `bearer ${base64Auth}`
     }
   };
 
@@ -24,7 +24,7 @@ const PlanviewClient = function (base_url, base64Auth) {
     };
   };
 
-  const parseResponse = (result) => {
+  const parseResponse = result => {
     if (result.status === 200 && !!result.data.id) {
       return {
         success: true,
@@ -33,12 +33,12 @@ const PlanviewClient = function (base_url, base64Auth) {
     } else {
       return {
         success: false,
-        result: result
+        result
       };
     }
   };
 
-  const parseException = (e) => {
+  const parseException = e => {
     return {
       success: false,
       error: e
@@ -55,9 +55,7 @@ const PlanviewClient = function (base_url, base64Auth) {
     }
   };
 
-  return {
-    createCard: createCard
-  };
+  return { createCard };
 };
 
 module.exports = PlanviewClient;

@@ -14,61 +14,71 @@ describe("createCase", () => {
   const boardId = 123;
   const laneId = 234;
   const typeId = 456;
-  const title = "My Title"
+  const title = "My Title";
   const customId = 999;
   const pr_url = "https://github.com/some_pr_url";
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    jest.clearAllMocks();
   });
 
   it("posts to the Planview API", async () => {
-    postMock.mockImplementation((_url, _payload, _config) => { return validResponse; });
+    postMock.mockImplementation((_url, _payload, _config) => {
+      return validResponse;
+    });
 
     await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url);
 
-    expect(postMock)
-      .toHaveBeenCalledWith(
-        "https://example.com/card",
-        expect.anything(),
-        expect.objectContaining({
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Authorization": "bearer somebase64Auth"
-          }
-        })
-      );
+    expect(postMock).toHaveBeenCalledWith(
+      "https://example.com/card",
+      expect.anything(),
+      expect.objectContaining({
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "bearer somebase64Auth"
+        }
+      })
+    );
   });
 
   it("posts the correct payload", async () => {
-    postMock.mockImplementation((_url, _payload, _config) => { return validResponse; });
+    postMock.mockImplementation((_url, _payload, _config) => {
+      return validResponse;
+    });
 
     await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url);
 
-    expect(postMock)
-      .toHaveBeenCalledWith(
-        expect.anything(),
-        expect.objectContaining({
-          boardId: "123",
-          laneId: "234",
-          typeId: "456",
-          title: "My Title",
-          customId: "999",
-          externalLink: {
-            label: "GitHub PR",
-            url: "https://github.com/some_pr_url"
-          }
-        }),
-        expect.anything()
-      );
+    expect(postMock).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        boardId: "123",
+        laneId: "234",
+        typeId: "456",
+        title: "My Title",
+        customId: "999",
+        externalLink: {
+          label: "GitHub PR",
+          url: "https://github.com/some_pr_url"
+        }
+      }),
+      expect.anything()
+    );
   });
 
   it("returns the case number if case is created", async () => {
-    postMock.mockImplementation((_url, _payload, _config) => { return validResponse; });
+    postMock.mockImplementation((_url, _payload, _config) => {
+      return validResponse;
+    });
 
-    const result = await planviewClient
-      .createCard(boardId, laneId, typeId, title, customId, pr_url);
+    const result = await planviewClient.createCard(
+      boardId,
+      laneId,
+      typeId,
+      title,
+      customId,
+      pr_url
+    );
 
     expect(result.success).toEqual(true);
     expect(result.data).toEqual(validResponse.data);
@@ -78,11 +88,19 @@ describe("createCase", () => {
     const invalidResponse = {
       status: 200,
       data: {}
-    }
-    postMock.mockImplementation((_url, _payload, _config) => { return invalidResponse; });
+    };
+    postMock.mockImplementation((_url, _payload, _config) => {
+      return invalidResponse;
+    });
 
-    const result = await planviewClient
-      .createCard(boardId, laneId, typeId, title, customId, pr_url);
+    const result = await planviewClient.createCard(
+      boardId,
+      laneId,
+      typeId,
+      title,
+      customId,
+      pr_url
+    );
 
     expect(result.success).toEqual(false);
     expect(result.result).toBe(invalidResponse);
@@ -92,22 +110,38 @@ describe("createCase", () => {
     const invalidResponse = {
       status: 500,
       data: {}
-    }
-    postMock.mockImplementation((_url, _payload, _config) => { return invalidResponse; });
+    };
+    postMock.mockImplementation((_url, _payload, _config) => {
+      return invalidResponse;
+    });
 
-    const result = await planviewClient
-      .createCard(boardId, laneId, typeId, title, customId, pr_url);
+    const result = await planviewClient.createCard(
+      boardId,
+      laneId,
+      typeId,
+      title,
+      customId,
+      pr_url
+    );
 
     expect(result.success).toEqual(false);
     expect(result.result).toBe(invalidResponse);
   });
 
   it("returns an error if there is an eunexpected error", async () => {
-    error = new Error("just no")
-    postMock.mockImplementation((_url, _payload, _config) => { throw error; });
+    const error = new Error("just no");
+    postMock.mockImplementation((_url, _payload, _config) => {
+      throw error;
+    });
 
-    const result = await planviewClient
-      .createCard(boardId, laneId, typeId, title, customId, pr_url);
+    const result = await planviewClient.createCard(
+      boardId,
+      laneId,
+      typeId,
+      title,
+      customId,
+      pr_url
+    );
 
     expect(result.success).toEqual(false);
     expect(result.error).toBe(error);

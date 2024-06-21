@@ -1,7 +1,7 @@
 /**
- * Unit tests for the action's main functionality, src/main.js
+ * Unit tests for the action"s main functionality, src/main.js
  */
-const core = require('@actions/core');
+const core = require("@actions/core");
 const github = require("@actions/github");
 
 const FogBugzClient = require("../src/fogbugz-client");
@@ -12,16 +12,16 @@ const PlanviewClient = require("../src/planview-client");
 jest.mock("../src/planview-client", () => jest.fn());
 const createCard = jest.fn();
 
-const dependabotPr = require("./dependabot_pr_sample.json");
-const regularPr = require("./regular_pr_sample.json");
-const syncPr = require("./sync_pr_sample.json");
-const notAPr = require("./not_a_pr_sample.json");
-const main = require('../src/main');
+const dependabotPr = require("./dependabot_pr_sample");
+const regularPr = require("./regular_pr_sample");
+const syncPr = require("./sync_pr_sample");
+const notAPr = require("./not_a_pr_sample");
+const main = require("../src/main");
 
-const debugMock = jest.spyOn(core, 'debug').mockImplementation();
-const getInputMock = jest.spyOn(core, 'getInput').mockImplementation();
-const setFailedMock = jest.spyOn(core, 'setFailed').mockImplementation();
-const setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation();
+const debugMock = jest.spyOn(core, "debug").mockImplementation();
+const getInputMock = jest.spyOn(core, "getInput").mockImplementation();
+const setFailedMock = jest.spyOn(core, "setFailed").mockImplementation();
+const setOutputMock = jest.spyOn(core, "setOutput").mockImplementation();
 
 const invalidFogBugzResponse = { success: false, error: "hi" };
 const validFogBugzResponse = { success: true, case: { ixBug: 123 } };
@@ -29,7 +29,7 @@ const validFogBugzResponse = { success: true, case: { ixBug: 123 } };
 const invalidPlanviewResponse = { success: false, result: "hi" };
 const validPlanviewResponse = { success: true, data: { id: 42 } };
 
-describe('action', () => {
+describe("action", () => {
   let debugMessages = [];
 
   beforeEach(() => {
@@ -37,44 +37,44 @@ describe('action', () => {
 
     debugMessages = [];
     debugMock.mockImplementation(msg => {
-      debugMessages.push(msg)
+      debugMessages.push(msg);
     });
 
     getInputMock.mockImplementation(name => {
       switch (name) {
         case "fogbugz_api_url":
-          return "https://my.fb.com/api"
+          return "https://my.fb.com/api";
         case "fogbugz_token":
-          return "myfbtoken"
+          return "myfbtoken";
         case "fogbugz_project":
-          return "My Project"
+          return "My Project";
         case "fogbugz_subproject":
-          return "My Subproject"
+          return "My Subproject";
         case "fogbugz_category":
-          return "My Category"
+          return "My Category";
         case "planview_api_url":
-          return "https://my.pv.com/io"
+          return "https://my.pv.com/io";
         case "planview_auth":
-          return "myplanviewauth"
+          return "myplanviewauth";
         case "planview_board_id":
-          return 123456
+          return 123456;
         case "planview_lane_id":
-          return 654321
+          return 654321;
         case "planview_type_id":
-          return 987654
+          return 987654;
         case "users":
-          return "dependabot[bot]"
+          return "dependabot[bot]";
         default:
-          return ""
+          return "";
       }
     });
 
     FogBugzClient.mockImplementation((_baseUrl, _token) => {
-      return { createCase: createCase };
+      return { createCase };
     });
 
     PlanviewClient.mockImplementation((_baseUrl, _auth) => {
-      return { createCard: createCard };
+      return { createCard };
     });
   });
 
@@ -125,9 +125,14 @@ describe('action', () => {
 
     await main.run();
 
-    expect(createCase).toHaveBeenCalledWith("My Subproject - Dependabot PR title", "My Project", "Dependabot PR body", "My Category");
+    expect(createCase).toHaveBeenCalledWith(
+      "My Subproject - Dependabot PR title",
+      "My Project",
+      "Dependabot PR body",
+      "My Category"
+    );
     expect(debugMessages).toContain("Creating FB case for My Subproject - Dependabot PR title");
-    expect(debugMessages).toContain("fbt_result: \"myresult\"");
+    expect(debugMessages).toContain('fbt_result: "myresult"');
   });
 
   it("fails if the FogBugz case isn't created", async () => {
@@ -165,9 +170,15 @@ describe('action', () => {
 
     await main.run();
 
-    expect(createCard).toHaveBeenCalledWith(123456, 654321, 987654,
-      "My Subproject - Dependabot PR title", 123, "https://github.com/MyOrg/my_repo/pull/123");
-    expect(debugMessages).toContain("pvc_result: \"myresult\"");
+    expect(createCard).toHaveBeenCalledWith(
+      123456,
+      654321,
+      987654,
+      "My Subproject - Dependabot PR title",
+      123,
+      "https://github.com/MyOrg/my_repo/pull/123"
+    );
+    expect(debugMessages).toContain('pvc_result: "myresult"');
   });
 
   it("fails if the card can't be created", async () => {
@@ -190,8 +201,10 @@ describe('action', () => {
   });
 
   it("handles and unecpected exception", async () => {
-    error = new Error("just no");
-    getInputMock.mockImplementation(_name => { throw error });
+    const error = new Error("just no");
+    getInputMock.mockImplementation(_name => {
+      throw error;
+    });
 
     await main.run();
 
@@ -203,32 +216,37 @@ describe('action', () => {
     getInputMock.mockImplementation(name => {
       switch (name) {
         case "fogbugz_api_url":
-          return "https://my.fb.com/api"
+          return "https://my.fb.com/api";
         case "fogbugz_token":
-          return "myfbtoken"
+          return "myfbtoken";
         case "fogbugz_project":
-          return "My Project"
+          return "My Project";
         case "fogbugz_category":
-          return "My Category"
+          return "My Category";
         case "planview_api_url":
-          return "https://my.pv.com/io"
+          return "https://my.pv.com/io";
         case "planview_auth":
-          return "myplanviewauth"
+          return "myplanviewauth";
         case "planview_board_id":
-          return 123456
+          return 123456;
         case "planview_lane_id":
-          return 654321
+          return 654321;
         case "planview_type_id":
-          return 987654
+          return 987654;
         case "users":
-          return "dependabot[bot]"
+          return "dependabot[bot]";
         default:
-          return ""
+          return "";
       }
     });
 
     await main.run();
 
-    expect(createCase).toHaveBeenCalledWith("Dependabot PR title", "My Project", "Dependabot PR body", "My Category");
+    expect(createCase).toHaveBeenCalledWith(
+      "Dependabot PR title",
+      "My Project",
+      "Dependabot PR body",
+      "My Category"
+    );
   });
-})
+});

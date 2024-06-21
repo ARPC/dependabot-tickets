@@ -45,7 +45,11 @@ rules:
     "import/no-namespace": "off",
     "no-console": "off",
     "no-unused-vars": "off",
-    "prettier/prettier": "error",
-    "semi": "off",
-    "quotes": ["error", "double", {"allowTemplateLiterals": true }]
+    "prettier/prettier": ["error",
+        {
+          "singleQuote": false,
+          "avoidEscape": false,
+          "semi": true,
+        }],
+    "semi": "off"
   }

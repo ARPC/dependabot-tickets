@@ -23,49 +23,53 @@ describe("createCase", () => {
   const category = "My Category";
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    jest.clearAllMocks();
   });
 
   it("posts to the FogBugz API", async () => {
-    postMock.mockImplementation((_url, _payload, _config) => { return validResponse; });
+    postMock.mockImplementation((_url, _payload, _config) => {
+      return validResponse;
+    });
 
     await fogbugzClient.createCase(title, project, text, category);
 
-    expect(postMock)
-      .toHaveBeenCalledWith(
-        "https://example.com",
-        expect.anything(),
-        expect.objectContaining({
-          headers: {
-            "Accept": "application/json",
-          }
-        })
-      );
+    expect(postMock).toHaveBeenCalledWith(
+      "https://example.com",
+      expect.anything(),
+      expect.objectContaining({
+        headers: {
+          Accept: "application/json"
+        }
+      })
+    );
   });
 
   it("posts the correct payload", async () => {
-    postMock.mockImplementation((_url, _payload, _config) => { return validResponse; });
+    postMock.mockImplementation((_url, _payload, _config) => {
+      return validResponse;
+    });
 
     await fogbugzClient.createCase(title, project, text, category);
 
-    expect(postMock)
-      .toHaveBeenCalledWith(
-        expect.anything(),
-        expect.objectContaining({
-          token: "sometoken",
-          cmd: "new",
-          sTitle: title,
-          sProject: project,
-          sCategory: category,
-          sEvent: text,
-          fRichText: 1
-        }),
-        expect.anything()
-      );
+    expect(postMock).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        token: "sometoken",
+        cmd: "new",
+        sTitle: title,
+        sProject: project,
+        sCategory: category,
+        sEvent: text,
+        fRichText: 1
+      }),
+      expect.anything()
+    );
   });
 
   it("returns the case number if case is created", async () => {
-    postMock.mockImplementation((_url, _payload, _config) => { return validResponse; });
+    postMock.mockImplementation((_url, _payload, _config) => {
+      return validResponse;
+    });
 
     const result = await fogbugzClient.createCase(title, project, text, category);
 
@@ -81,8 +85,10 @@ describe("createCase", () => {
         warnings: ["warning"],
         data: {}
       }
-    }
-    postMock.mockImplementation((_url, _payload, _config) => { return invalidResponse; });
+    };
+    postMock.mockImplementation((_url, _payload, _config) => {
+      return invalidResponse;
+    });
 
     const result = await fogbugzClient.createCase(title, project, text, category);
 
@@ -93,7 +99,9 @@ describe("createCase", () => {
 
   it("returns an error if the response is not 200", async () => {
     validResponse.status = 500;
-    postMock.mockImplementation((_url, _payload, _config) => { return validResponse; });
+    postMock.mockImplementation((_url, _payload, _config) => {
+      return validResponse;
+    });
 
     const result = await fogbugzClient.createCase(title, project, text, category);
 
@@ -103,7 +111,9 @@ describe("createCase", () => {
   });
 
   it("returns an error if there is an eunexpected error", async () => {
-    postMock.mockImplementation((_url, _payload, _config) => { throw new Error("just no"); });
+    postMock.mockImplementation((_url, _payload, _config) => {
+      throw new Error("just no");
+    });
 
     const result = await fogbugzClient.createCase(title, project, text, category);
 

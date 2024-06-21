@@ -1,15 +1,15 @@
 const axios = require("axios");
 
-const FogBugzClient = function (baseUrl, token) {
+const FogBugzClient = (baseUrl, token) => {
   const config = {
     headers: {
-      "Accept": "application/json",
+      Accept: "application/json"
     }
-  }
+  };
 
   const getCreateCasePayload = (title, project, text, category) => {
     return {
-      token: token,
+      token,
       cmd: "new",
       sTitle: title,
       sProject: project,
@@ -19,7 +19,7 @@ const FogBugzClient = function (baseUrl, token) {
     };
   };
 
-  const parseResponse = (result) => {
+  const parseResponse = result => {
     if (result.status === 200 && result.data.errors.length === 0) {
       return {
         success: true,
@@ -30,11 +30,11 @@ const FogBugzClient = function (baseUrl, token) {
         success: false,
         errors: result.data.errors,
         warnings: result.data.warnings
-      }
+      };
     }
   };
 
-  const parseException = (e) => {
+  const parseException = e => {
     return {
       success: false,
       errors: [e.message]
@@ -49,10 +49,9 @@ const FogBugzClient = function (baseUrl, token) {
     } catch (e) {
       return parseException(e);
     }
-  }
-  return {
-    createCase: createCase
   };
+
+  return { createCase };
 };
 
 module.exports = FogBugzClient;
