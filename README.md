@@ -19,11 +19,11 @@ jobs:
         id: step_1
         uses: ARPC/dependabot-tickets@v0.2.0
         with:
-          fogbugz_api_url: "https://my.fogbuz.instantce/api"
+          fogbugz_api_url: 'https://my.fogbuz.instantce/api'
           fogbugz_token: ${{ secrets.FOGBUGZ_API_TOKEN }}
           fogbugz_project: My Project
-          fogbugz_category: "My Category"
-          planview_api_url: "https://mysite.leankit.com/io"
+          fogbugz_category: 'My Category'
+          planview_api_url: 'https://mysite.leankit.com/io'
           planview_auth: ${{ secrets.LEANKIT_AUTH }}
           planview_board_id: 1000000001
           planview_lane_id: 1000000002
