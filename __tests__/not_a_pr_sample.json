@@ -1,0 +1,18 @@
+{
+  "action": "opened",
+  "number": 123,
+  "organization": {
+    "avatar_url": "https://avatars.githubusercontent.com/u/234?v=4",
+    "description": "",
+    "events_url": "https://api.github.com/orgs/MyOrg/events",
+    "hooks_url": "https://api.github.com/orgs/MyOrg/hooks",
+    "id": 345,
+    "issues_url": "https://api.github.com/orgs/MyOrg/issues",
+    "login": "MyOrg",
+    "members_url": "https://api.github.com/orgs/MyOrg/members{/member}",
+    "node_id": "someorgguid",
+    "public_members_url": "https://api.github.com/orgs/MyOrg/public_members{/member}",
+    "repos_url": "https://api.github.com/orgs/MyOrg/repos",
+    "url": "https://api.github.com/orgs/MyOrg"
+  }
+}

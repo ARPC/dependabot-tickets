@@ -1,0 +1,14 @@
+{
+  "action": "opened",
+  "number": 123,
+  "organization": {},
+  "pull_request": {
+    "base": {},
+    "body": null,
+    "title": "Sample pull request",
+    "user": {
+      "login": "sample_user"
+    },
+    "sender": {}
+  }
+}
