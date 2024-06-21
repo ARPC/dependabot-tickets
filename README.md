@@ -31,7 +31,7 @@ jobs:
           users: dependabot
 ```
 
-# Development
+## Development
 
-* npm install
-* npm test
+- npm install
+- npm test
