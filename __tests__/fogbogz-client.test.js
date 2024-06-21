@@ -1,5 +1,5 @@
 const axios = require("axios");
-const FogBugzClient = require("../src/fogbugz_client");
+const FogBugzClient = require("../src/fogbugz-client");
 
 const postMock = jest.spyOn(axios, "post").mockImplementation();
 

@@ -4,12 +4,12 @@
 const core = require('@actions/core');
 const github = require("@actions/github");
 
-const FogBugzClient = require("../src/fogbugz_client");
-jest.mock("../src/fogbugz_client", () => jest.fn());
+const FogBugzClient = require("../src/fogbugz-client");
+jest.mock("../src/fogbugz-client", () => jest.fn());
 const createCase = jest.fn();
 
-const PlanviewClient = require("../src/planview_client");
-jest.mock("../src/planview_client", () => jest.fn());
+const PlanviewClient = require("../src/planview-client");
+jest.mock("../src/planview-client", () => jest.fn());
 const createCard = jest.fn();
 
 const dependabotPr = require("./dependabot_pr_sample.json");

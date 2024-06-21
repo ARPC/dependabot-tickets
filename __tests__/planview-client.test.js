@@ -1,5 +1,5 @@
 const axios = require("axios");
-const PlanviewClient = require("../src/planview_client");
+const PlanviewClient = require("../src/planview-client");
 
 const postMock = jest.spyOn(axios, "post").mockImplementation();
 

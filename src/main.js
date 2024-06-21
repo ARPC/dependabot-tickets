@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const github = require("@actions/github");
-const FogBugzClient = require("./fogbugz_client");
-const planview_client = require("./planview_client");
+const FogBugzClient = require("./fogbugz-client");
+const PlanviewClient = require("./planview-client");
 
 async function run() {
   core.debug("Running action");
@@ -35,7 +35,7 @@ async function run() {
     core.debug(`fbt_result: ${JSON.stringify(fbt_result)}`);
     if (fbt_result.success) {
       core.setOutput("fogbugz_id", fbt_result.case.ixBug);
-      const pvc = new planview_client(core.getInput("planview_api_url"), core.getInput("planview_auth"));
+      const pvc = new PlanviewClient(core.getInput("planview_api_url"), core.getInput("planview_auth"));
       const boardId = core.getInput("planview_board_id");
       const laneId = core.getInput("planview_lane_id");
       const typeId = core.getInput("planview_type_id");
