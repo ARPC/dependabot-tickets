@@ -1,3 +1,3 @@
-const { run } = require("./main");
+const { run } = require('./main')
 
-run();
+run()

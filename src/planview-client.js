@@ -1,16 +1,20 @@
-const axios = require("axios");
+const axios = require('axios')
 
-const PlanviewClient = (base_url, base64Auth) => {
-  const cardUrl = `${base_url}/card`;
-  const config = {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `bearer ${base64Auth}`
+class PlanviewClient {
+  constructor(baseUrl, base64Auth) {
+    this.baseUrl = baseUrl
+    this.base64Auth = base64Auth
+    this.config = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `bearer ${base64Auth}`
+      }
     }
-  };
+    this.cardUrl = `${baseUrl}/card`
+  }
 
-  const getCreateCardPayload = (boardId, laneId, typeId, title, customId, pr_url) => {
+  #getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url) {
     return {
       boardId: boardId.toString(),
       laneId: laneId.toString(),
@@ -18,44 +22,42 @@ const PlanviewClient = (base_url, base64Auth) => {
       title: title.toString(),
       customId: customId.toString(),
       externalLink: {
-        label: "GitHub PR",
+        label: 'GitHub PR',
         url: pr_url
       }
-    };
-  };
+    }
+  }
 
-  const parseResponse = result => {
+  #parseResponse(result) {
     if (result.status === 200 && !!result.data.id) {
       return {
         success: true,
         data: result.data
-      };
+      }
     } else {
       return {
         success: false,
         result
-      };
+      }
     }
-  };
+  }
 
-  const parseException = e => {
+  #parseException(e) {
     return {
       success: false,
       error: e
-    };
-  };
-
-  const createCard = async (boardId, laneId, typeId, title, customId, pr_url) => {
-    try {
-      const payload = getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url);
-      const response = await axios.post(cardUrl, payload, config);
-      return parseResponse(response);
-    } catch (e) {
-      return parseException(e);
     }
-  };
+  }
 
-  return { createCard };
-};
+  async createCard(boardId, laneId, typeId, title, customId, pr_url) {
+    try {
+      const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url)
+      const response = await axios.post(this.cardUrl, payload, this.config)
+      return this.#parseResponse(response)
+    } catch (e) {
+      return this.#parseException(e)
+    }
+  }
+}
 
-module.exports = PlanviewClient;
+module.exports = PlanviewClient

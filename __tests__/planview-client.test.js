@@ -1,149 +1,121 @@
-const axios = require("axios");
-const PlanviewClient = require("../src/planview-client");
+const axios = require('axios')
+const PlanviewClient = require('../src/planview-client')
 
-const postMock = jest.spyOn(axios, "post").mockImplementation();
+const postMock = jest.spyOn(axios, 'post').mockImplementation()
 
-describe("createCase", () => {
-  const planviewClient = new PlanviewClient("https://example.com", "somebase64Auth");
+describe('createCase', () => {
+  const planviewClient = new PlanviewClient('https://example.com', 'somebase64Auth')
   const validResponse = {
     status: 200,
     data: {
       id: 1234
     }
-  };
-  const boardId = 123;
-  const laneId = 234;
-  const typeId = 456;
-  const title = "My Title";
-  const customId = 999;
-  const pr_url = "https://github.com/some_pr_url";
+  }
+  const boardId = 123
+  const laneId = 234
+  const typeId = 456
+  const title = 'My Title'
+  const customId = 999
+  const pr_url = 'https://github.com/some_pr_url'
 
   beforeEach(() => {
-    jest.clearAllMocks();
-  });
+    jest.clearAllMocks()
+  })
 
-  it("posts to the Planview API", async () => {
+  it('posts to the Planview API', async () => {
     postMock.mockImplementation((_url, _payload, _config) => {
-      return validResponse;
-    });
+      return validResponse
+    })
 
-    await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url);
+    await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
 
     expect(postMock).toHaveBeenCalledWith(
-      "https://example.com/card",
+      'https://example.com/card',
       expect.anything(),
       expect.objectContaining({
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "bearer somebase64Auth"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: 'bearer somebase64Auth'
         }
       })
-    );
-  });
+    )
+  })
 
-  it("posts the correct payload", async () => {
+  it('posts the correct payload', async () => {
     postMock.mockImplementation((_url, _payload, _config) => {
-      return validResponse;
-    });
+      return validResponse
+    })
 
-    await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url);
+    await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
 
     expect(postMock).toHaveBeenCalledWith(
       expect.anything(),
       expect.objectContaining({
-        boardId: "123",
-        laneId: "234",
-        typeId: "456",
-        title: "My Title",
-        customId: "999",
+        boardId: '123',
+        laneId: '234',
+        typeId: '456',
+        title: 'My Title',
+        customId: '999',
         externalLink: {
-          label: "GitHub PR",
-          url: "https://github.com/some_pr_url"
+          label: 'GitHub PR',
+          url: 'https://github.com/some_pr_url'
         }
       }),
       expect.anything()
-    );
-  });
+    )
+  })
 
-  it("returns the case number if case is created", async () => {
+  it('returns the case number if case is created', async () => {
     postMock.mockImplementation((_url, _payload, _config) => {
-      return validResponse;
-    });
+      return validResponse
+    })
 
-    const result = await planviewClient.createCard(
-      boardId,
-      laneId,
-      typeId,
-      title,
-      customId,
-      pr_url
-    );
+    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
 
-    expect(result.success).toEqual(true);
-    expect(result.data).toEqual(validResponse.data);
-  });
+    expect(result.success).toEqual(true)
+    expect(result.data).toEqual(validResponse.data)
+  })
 
-  it("returns an error if the card is not created", async () => {
+  it('returns an error if the card is not created', async () => {
     const invalidResponse = {
       status: 200,
       data: {}
-    };
+    }
     postMock.mockImplementation((_url, _payload, _config) => {
-      return invalidResponse;
-    });
+      return invalidResponse
+    })
 
-    const result = await planviewClient.createCard(
-      boardId,
-      laneId,
-      typeId,
-      title,
-      customId,
-      pr_url
-    );
+    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
 
-    expect(result.success).toEqual(false);
-    expect(result.result).toBe(invalidResponse);
-  });
+    expect(result.success).toEqual(false)
+    expect(result.result).toBe(invalidResponse)
+  })
 
-  it("returns an error if the response is not 200", async () => {
+  it('returns an error if the response is not 200', async () => {
     const invalidResponse = {
       status: 500,
       data: {}
-    };
+    }
     postMock.mockImplementation((_url, _payload, _config) => {
-      return invalidResponse;
-    });
+      return invalidResponse
+    })
 
-    const result = await planviewClient.createCard(
-      boardId,
-      laneId,
-      typeId,
-      title,
-      customId,
-      pr_url
-    );
+    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
 
-    expect(result.success).toEqual(false);
-    expect(result.result).toBe(invalidResponse);
-  });
+    expect(result.success).toEqual(false)
+    expect(result.result).toBe(invalidResponse)
+  })
 
-  it("returns an error if there is an eunexpected error", async () => {
-    const error = new Error("just no");
+  it('returns an error if there is an eunexpected error', async () => {
+    const error = new Error('just no')
     postMock.mockImplementation((_url, _payload, _config) => {
-      throw error;
-    });
+      throw error
+    })
 
-    const result = await planviewClient.createCard(
-      boardId,
-      laneId,
-      typeId,
-      title,
-      customId,
-      pr_url
-    );
+    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
 
-    expect(result.success).toEqual(false);
-    expect(result.error).toBe(error);
-  });
-});
+    expect(result.success).toEqual(false)
+    expect(result.error).toBe(error)
+  })
+})

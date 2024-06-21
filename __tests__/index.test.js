@@ -1,13 +1,13 @@
-const { run } = require("../src/main");
+const { run } = require('../src/main')
 
-jest.mock("../ src / main", () => ({
+jest.mock('../src/main', () => ({
   run: jest.fn()
-}));
+}))
 
-describe("index", () => {
-  it("calls run when imported", async () => {
-    require("../src/index");
+describe('index', () => {
+  it('calls run when imported', async () => {
+    require('../src/index')
 
-    expect(run).toHaveBeenCalled();
-  });
-});
+    expect(run).toHaveBeenCalled()
+  })
+})
