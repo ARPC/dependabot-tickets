@@ -1,39 +1,19 @@
-name: "Dependabot Tickets"
-description: "Create Manuscript and Leankit tickets for pull requests."
+name: 'The name of your action here'
+description: 'Provide a description here'
+author: 'Your name or organization here'
+
+# Define your inputs here.
 inputs:
-  fogbugz_api_url:
+  milliseconds:
+    description: 'Your input description here'
     required: true
-    description: "Fogbugz API URL"
-  fogbugz_token:
-    required: true
-    description: "Fogbugz API Token"
-  fogbugz_project:
-    required: true
-    description: "Fogbugz Project"
-  fogbugz_subproject:
-    required: false
-    description: "Subproject Name for Fogbugz Project (this simply prepends the text to the ticket/case names)"
-  fogbugz_category:
-    required: true
-    description: "Fogbugz Category"
-  leankit_api_url:
-    required: true
-    description: "Fogbugz API URL"
-  leankit_auth:
-    required: true
-    description: "Leankit Base64 Auth"
-  leankit_type_id:
-    required: true
-    description: "LeanKit ID for the Ticket Type"
-  board_id:
-    required: true
-    description: "LeanKit ID for the Board where the ticket will be created."
-  lane_id:
-    required: true
-    description: "LeanKit ID for the Lane where the ticket will be placed."
-  users:
-    required: true
-    description: "Make a ticket for any pull request open by these users."
+    default: '1000'
+
+# Define your outputs here.
+outputs:
+  time:
+    description: 'Your output description here'
+
 runs:
-  using: "node16"
-  main: "dist/index.js"
+  using: node20
+  main: dist/index.js

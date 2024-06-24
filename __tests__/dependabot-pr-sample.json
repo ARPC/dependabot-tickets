@@ -1,0 +1,15 @@
+{
+  "action": "opened",
+  "number": 123,
+  "organization": {},
+  "pull_request": {
+    "base": {},
+    "body": "Dependabot PR body",
+    "html_url": "https://github.com/MyOrg/my_repo/pull/123",
+    "title": "Dependabot PR title",
+    "user": {
+      "login": "dependabot[bot]"
+    },
+    "sender": {}
+  }
+}

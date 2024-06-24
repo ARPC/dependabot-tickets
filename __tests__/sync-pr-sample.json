@@ -1,0 +1,14 @@
+{
+  "action": "synchronize",
+  "number": 123,
+  "organization": {},
+  "pull_request": {
+    "base": {},
+    "body": "This is a PR body",
+    "title": "This is a PR title",
+    "user": {
+      "login": "dependabot[bot]"
+    },
+    "sender": {}
+  }
+}
