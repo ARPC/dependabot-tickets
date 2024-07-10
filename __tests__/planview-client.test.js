@@ -89,7 +89,7 @@ describe('createCase', () => {
     const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
 
     expect(result.success).toEqual(false)
-    expect(result.result).toBe(invalidResponse)
+    expect(result.data).toBe(invalidResponse.data)
   })
 
   it('returns an error if the response is not 201', async () => {
@@ -104,7 +104,7 @@ describe('createCase', () => {
     const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
 
     expect(result.success).toEqual(false)
-    expect(result.result).toBe(invalidResponse)
+    expect(result.data).toBe(invalidResponse.data)
   })
 
   it('returns an error if there is an eunexpected error', async () => {
