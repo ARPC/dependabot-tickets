@@ -6,7 +6,7 @@ const postMock = jest.spyOn(axios, 'post').mockImplementation()
 describe('createCase', () => {
   const planviewClient = new PlanviewClient('https://example.com', 'somebase64Auth')
   const validResponse = {
-    status: 200,
+    status: 201,
     data: {
       id: 1234
     }
@@ -79,7 +79,7 @@ describe('createCase', () => {
 
   it('returns an error if the card is not created', async () => {
     const invalidResponse = {
-      status: 200,
+      status: 201,
       data: {}
     }
     postMock.mockImplementation((_url, _payload, _config) => {
@@ -92,7 +92,7 @@ describe('createCase', () => {
     expect(result.result).toBe(invalidResponse)
   })
 
-  it('returns an error if the response is not 200', async () => {
+  it('returns an error if the response is not 201', async () => {
     const invalidResponse = {
       status: 500,
       data: {}
