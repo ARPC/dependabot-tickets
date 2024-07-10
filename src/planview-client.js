@@ -29,7 +29,7 @@ class PlanviewClient {
   }
 
   #parseResponse(result) {
-    if (result.status === 200 && !!result.data.id) {
+    if (result.status === 201 && !!result.data.id) {
       return {
         success: true,
         data: result.data
@@ -37,7 +37,7 @@ class PlanviewClient {
     } else {
       return {
         success: false,
-        result
+        data: result.data
       }
     }
   }
