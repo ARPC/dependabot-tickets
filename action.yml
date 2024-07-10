@@ -1,18 +1,48 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'dependabot-tickets'
+description:
+  'This action creates a FogBugz and AgilePlace Planview ticket for Dependabot pull requests.'
+author: 'Ankura Consulting Group, LLC'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  fogbugz_api_url:
+    description: 'The URL of your FogBugz API'
     required: true
-    default: '1000'
+  fogbugz_token:
+    description: 'Your FogBugz API token'
+    required: true
+  fogbugz_project:
+    description: 'The name of your FogBugz Project'
+    required: true
+  fogbugz_category:
+    description: 'The name of your FogBugz Category'
+    required: true
+  planview_api_url:
+    description: 'The URL of your Planview API'
+    required: true
+  planview_auth:
+    description: 'Your Planview API token'
+    required: true
+  planview_board_id:
+    description: 'The ID of your Planview Board'
+    required: true
+  planview_lane_id:
+    description: 'The ID of your Planview Lane to put the tickets'
+    required: true
+  planview_type_id:
+    description: 'The type of ticket to create'
+    required: true
+  users:
+    description: 'The user making the pull request. Set to "dependabot"'
+    required: true
+    default: 'dependabot'
 
 # Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  fogbugz_id:
+    description: 'The FogBugz case number created'
+  planview_id:
+    description: 'The Planview ticket id created'
 
 runs:
   using: node20

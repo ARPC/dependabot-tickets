@@ -6,7 +6,7 @@ const postMock = jest.spyOn(axios, 'post').mockImplementation()
 describe('createCase', () => {
   const planviewClient = new PlanviewClient('https://example.com', 'somebase64Auth')
   const validResponse = {
-    status: 200,
+    status: 201,
     data: {
       id: 1234
     }
@@ -79,7 +79,7 @@ describe('createCase', () => {
 
   it('returns an error if the card is not created', async () => {
     const invalidResponse = {
-      status: 200,
+      status: 201,
       data: {}
     }
     postMock.mockImplementation((_url, _payload, _config) => {
@@ -89,10 +89,10 @@ describe('createCase', () => {
     const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
 
     expect(result.success).toEqual(false)
-    expect(result.result).toBe(invalidResponse)
+    expect(result.data).toBe(invalidResponse.data)
   })
 
-  it('returns an error if the response is not 200', async () => {
+  it('returns an error if the response is not 201', async () => {
     const invalidResponse = {
       status: 500,
       data: {}
@@ -104,7 +104,7 @@ describe('createCase', () => {
     const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
 
     expect(result.success).toEqual(false)
-    expect(result.result).toBe(invalidResponse)
+    expect(result.data).toBe(invalidResponse.data)
   })
 
   it('returns an error if there is an eunexpected error', async () => {
