@@ -18,7 +18,7 @@ inputs:
     description:
       'The subproject name of your FogBugz Project this is prepended to the Title because FB does
       not have subprojects'
-    required: true
+    required: false
   fogbugz_category:
     description: 'The name of your FogBugz Category'
     required: true
