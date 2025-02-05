@@ -1,17 +1,17 @@
-const axios = require('axios');
+const axios = require('axios')
 
 class PlanviewClient {
   constructor(baseUrl, base64Auth) {
-    this.baseUrl = baseUrl;
-    this.base64Auth = base64Auth;
+    this.baseUrl = baseUrl
+    this.base64Auth = base64Auth
     this.config = {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: `bearer ${base64Auth}`
       }
-    };
-    this.cardUrl = `${baseUrl}/card`;
+    }
+    this.cardUrl = `${baseUrl}/card`
   }
 
   #getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url) {
@@ -25,7 +25,7 @@ class PlanviewClient {
         label: 'GitHub PR',
         url: pr_url
       }
-    };
+    }
   }
 
   #parseResponse(result) {
@@ -33,34 +33,34 @@ class PlanviewClient {
       return {
         success: true,
         data: result.data
-      };
+      }
     } else {
       return {
-        client: "Planview",
+        client: 'Planview',
         status: result.status,
         success: false,
         data: result.data
-      };
+      }
     }
   }
 
   #parseException(e) {
     return {
-      client: "Planview",
+      client: 'Planview',
       success: false,
       error: e
-    };
+    }
   }
 
   async createCard(boardId, laneId, typeId, title, customId, pr_url) {
     try {
-      const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url);
-      const response = await axios.post(this.cardUrl, payload, this.config);
-      return this.#parseResponse(response);
+      const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url)
+      const response = await axios.post(this.cardUrl, payload, this.config)
+      return this.#parseResponse(response)
     } catch (e) {
-      return this.#parseException(e);
+      return this.#parseException(e)
     }
   }
 }
 
-module.exports = PlanviewClient;
+module.exports = PlanviewClient
