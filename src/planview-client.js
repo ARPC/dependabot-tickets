@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 class PlanviewClient {
-  constructor(baseUrl, base64Auth) {
+  constructor (baseUrl, base64Auth) {
     this.baseUrl = baseUrl
     this.base64Auth = base64Auth
     this.config = {
@@ -14,7 +14,7 @@ class PlanviewClient {
     this.cardUrl = `${baseUrl}/card`
   }
 
-  #getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url) {
+  #getCreateCardPayload (boardId, laneId, typeId, title, customId, prUrl) {
     return {
       boardId: boardId.toString(),
       laneId: laneId.toString(),
@@ -23,12 +23,12 @@ class PlanviewClient {
       customId: customId.toString(),
       externalLink: {
         label: 'GitHub PR',
-        url: pr_url
+        url: prUrl
       }
     }
   }
 
-  #parseResponse(result) {
+  #parseResponse (result) {
     if (result.status === 201 && !!result.data.id) {
       return {
         success: true,
@@ -44,7 +44,7 @@ class PlanviewClient {
     }
   }
 
-  #parseException(e) {
+  #parseException (e) {
     return {
       client: 'Planview',
       success: false,
@@ -52,9 +52,9 @@ class PlanviewClient {
     }
   }
 
-  async createCard(boardId, laneId, typeId, title, customId, pr_url) {
+  async createCard (boardId, laneId, typeId, title, customId, prUrl) {
     try {
-      const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url)
+      const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, prUrl)
       const response = await axios.post(this.cardUrl, payload, this.config)
       return this.#parseResponse(response)
     } catch (e) {

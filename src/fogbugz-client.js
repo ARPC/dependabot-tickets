@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 class FogBugzClient {
-  constructor(baseUrl, token) {
+  constructor (baseUrl, token) {
     this.baseUrl = baseUrl
     this.token = token
     this.config = {
@@ -11,7 +11,7 @@ class FogBugzClient {
     }
   }
 
-  #getCreateCasePayload(title, project, text, category) {
+  #getCreateCasePayload (title, project, text, category) {
     return {
       token: this.token,
       cmd: 'new',
@@ -23,7 +23,7 @@ class FogBugzClient {
     }
   }
 
-  #parseResponse(result) {
+  #parseResponse (result) {
     if (result.status === 200 && result.data.errors.length === 0) {
       return {
         success: true,
@@ -40,7 +40,7 @@ class FogBugzClient {
     }
   }
 
-  #parseException(e) {
+  #parseException (e) {
     return {
       client: 'FogBugz',
       success: false,
@@ -48,7 +48,7 @@ class FogBugzClient {
     }
   }
 
-  async createCase(title, project, text, category) {
+  async createCase (title, project, text, category) {
     try {
       const payload = this.#getCreateCasePayload(title, project, text, category)
       const response = await axios.post(this.baseUrl, payload, this.config)

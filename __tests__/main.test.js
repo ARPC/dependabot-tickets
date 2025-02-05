@@ -158,7 +158,7 @@ describe('action', () => {
     await main.run()
 
     expect(PlanviewClient).toHaveBeenCalledWith('https://my.pv.com/io', 'myplanviewauth')
-    expect(debugMessages).toContain(`Creating Planview card for 123`)
+    expect(debugMessages).toContain('Creating Planview card for 123')
   })
 
   it('tries to create the Planview card', async () => {
