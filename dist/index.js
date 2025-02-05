@@ -32772,7 +32772,7 @@ const github = __nccwpck_require__(5438)
 const FogBugzClient = __nccwpck_require__(4379)
 const PlanviewClient = __nccwpck_require__(374)
 
-async function run () {
+async function run() {
   core.debug('Running action')
   core.debug(github.context.payload)
   try {
