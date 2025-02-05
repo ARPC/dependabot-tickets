@@ -32701,7 +32701,7 @@ function wrappy (fn, cb) {
 const axios = __nccwpck_require__(8757)
 
 class FogBugzClient {
-  constructor (baseUrl, token) {
+  constructor(baseUrl, token) {
     this.baseUrl = baseUrl
     this.token = token
     this.config = {
@@ -32711,7 +32711,7 @@ class FogBugzClient {
     }
   }
 
-  #getCreateCasePayload (title, project, text, category) {
+  #getCreateCasePayload(title, project, text, category) {
     return {
       token: this.token,
       cmd: 'new',
@@ -32723,7 +32723,7 @@ class FogBugzClient {
     }
   }
 
-  #parseResponse (result) {
+  #parseResponse(result) {
     if (result.status === 200 && result.data.errors.length === 0) {
       return {
         success: true,
@@ -32740,7 +32740,7 @@ class FogBugzClient {
     }
   }
 
-  #parseException (e) {
+  #parseException(e) {
     return {
       client: 'FogBugz',
       success: false,
@@ -32748,7 +32748,7 @@ class FogBugzClient {
     }
   }
 
-  async createCase (title, project, text, category) {
+  async createCase(title, project, text, category) {
     try {
       const payload = this.#getCreateCasePayload(title, project, text, category)
       const response = await axios.post(this.baseUrl, payload, this.config)
@@ -32846,7 +32846,7 @@ module.exports = { run }
 const axios = __nccwpck_require__(8757)
 
 class PlanviewClient {
-  constructor (baseUrl, base64Auth) {
+  constructor(baseUrl, base64Auth) {
     this.baseUrl = baseUrl
     this.base64Auth = base64Auth
     this.config = {
@@ -32859,7 +32859,7 @@ class PlanviewClient {
     this.cardUrl = `${baseUrl}/card`
   }
 
-  #getCreateCardPayload (boardId, laneId, typeId, title, customId, prUrl) {
+  #getCreateCardPayload(boardId, laneId, typeId, title, customId, prUrl) {
     return {
       boardId: boardId.toString(),
       laneId: laneId.toString(),
@@ -32873,7 +32873,7 @@ class PlanviewClient {
     }
   }
 
-  #parseResponse (result) {
+  #parseResponse(result) {
     if (result.status === 201 && !!result.data.id) {
       return {
         success: true,
@@ -32889,7 +32889,7 @@ class PlanviewClient {
     }
   }
 
-  #parseException (e) {
+  #parseException(e) {
     return {
       client: 'Planview',
       success: false,
@@ -32897,7 +32897,7 @@ class PlanviewClient {
     }
   }
 
-  async createCard (boardId, laneId, typeId, title, customId, prUrl) {
+  async createCard(boardId, laneId, typeId, title, customId, prUrl) {
     try {
       const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, prUrl)
       const response = await axios.post(this.cardUrl, payload, this.config)
