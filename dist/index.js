@@ -32698,17 +32698,17 @@ function wrappy (fn, cb) {
 /***/ 4379:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const axios = __nccwpck_require__(8757);
+const axios = __nccwpck_require__(8757)
 
 class FogBugzClient {
   constructor(baseUrl, token) {
-    this.baseUrl = baseUrl;
-    this.token = token;
+    this.baseUrl = baseUrl
+    this.token = token
     this.config = {
       headers: {
         Accept: 'application/json'
       }
-    };
+    }
   }
 
   #getCreateCasePayload(title, project, text, category) {
@@ -32720,7 +32720,7 @@ class FogBugzClient {
       sCategory: category,
       sEvent: text,
       fRichText: 1
-    };
+    }
   }
 
   #parseResponse(result) {
@@ -32728,38 +32728,38 @@ class FogBugzClient {
       return {
         success: true,
         case: result.data.data.case
-      };
+      }
     } else {
       return {
-        client: "FogBugz",
+        client: 'FogBugz',
         status: result.status,
         success: false,
         errors: result.data.errors,
         warnings: result.data.warnings
-      };
+      }
     }
   }
 
   #parseException(e) {
     return {
-      client: "FogBugz",
+      client: 'FogBugz',
       success: false,
       errors: [e.message]
-    };
+    }
   }
 
   async createCase(title, project, text, category) {
     try {
-      const payload = this.#getCreateCasePayload(title, project, text, category);
-      const response = await axios.post(this.baseUrl, payload, this.config);
-      return this.#parseResponse(response);
+      const payload = this.#getCreateCasePayload(title, project, text, category)
+      const response = await axios.post(this.baseUrl, payload, this.config)
+      return this.#parseResponse(response)
     } catch (e) {
-      return this.#parseException(e);
+      return this.#parseException(e)
     }
   }
 }
 
-module.exports = FogBugzClient;
+module.exports = FogBugzClient
 
 
 /***/ }),
@@ -32843,20 +32843,20 @@ module.exports = { run }
 /***/ 374:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-const axios = __nccwpck_require__(8757);
+const axios = __nccwpck_require__(8757)
 
 class PlanviewClient {
   constructor(baseUrl, base64Auth) {
-    this.baseUrl = baseUrl;
-    this.base64Auth = base64Auth;
+    this.baseUrl = baseUrl
+    this.base64Auth = base64Auth
     this.config = {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: `bearer ${base64Auth}`
       }
-    };
-    this.cardUrl = `${baseUrl}/card`;
+    }
+    this.cardUrl = `${baseUrl}/card`
   }
 
   #getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url) {
@@ -32870,7 +32870,7 @@ class PlanviewClient {
         label: 'GitHub PR',
         url: pr_url
       }
-    };
+    }
   }
 
   #parseResponse(result) {
@@ -32878,37 +32878,37 @@ class PlanviewClient {
       return {
         success: true,
         data: result.data
-      };
+      }
     } else {
       return {
-        client: "Planview",
+        client: 'Planview',
         status: result.status,
         success: false,
         data: result.data
-      };
+      }
     }
   }
 
   #parseException(e) {
     return {
-      client: "Planview",
+      client: 'Planview',
       success: false,
       error: e
-    };
+    }
   }
 
   async createCard(boardId, laneId, typeId, title, customId, pr_url) {
     try {
-      const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url);
-      const response = await axios.post(this.cardUrl, payload, this.config);
-      return this.#parseResponse(response);
+      const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url)
+      const response = await axios.post(this.cardUrl, payload, this.config)
+      return this.#parseResponse(response)
     } catch (e) {
-      return this.#parseException(e);
+      return this.#parseException(e)
     }
   }
 }
 
-module.exports = PlanviewClient;
+module.exports = PlanviewClient
 
 
 /***/ }),
