@@ -129,7 +129,7 @@ describe('action', () => {
       'My Category'
     )
     expect(debugMessages).toContain('Creating FB case for My Subproject - Dependabot PR title')
-    expect(debugMessages).toContain('fbt_result: "myresult"')
+    expect(debugMessages).toContain('fbtResult: "myresult"')
   })
 
   it("fails if the FogBugz case isn't created", async () => {
@@ -139,7 +139,7 @@ describe('action', () => {
     await main.run()
 
     expect(setFailedMock).toHaveBeenCalledWith(invalidFogBugzResponse)
-    expect(debugMessages).toContain(`fbt_result: ${JSON.stringify(invalidFogBugzResponse)}`)
+    expect(debugMessages).toContain(`fbtResult: ${JSON.stringify(invalidFogBugzResponse)}`)
   })
 
   it('adds the FogBugz id to the output if the FogBugz case is created', async () => {
@@ -158,7 +158,7 @@ describe('action', () => {
     await main.run()
 
     expect(PlanviewClient).toHaveBeenCalledWith('https://my.pv.com/io', 'myplanviewauth')
-    expect(debugMessages).toContain(`Creating Planview card for 123`)
+    expect(debugMessages).toContain('Creating Planview card for 123')
   })
 
   it('tries to create the Planview card', async () => {
@@ -175,7 +175,7 @@ describe('action', () => {
       123,
       'https://github.com/MyOrg/my_repo/pull/123'
     )
-    expect(debugMessages).toContain('pvc_result: "myresult"')
+    expect(debugMessages).toContain('pvcResult: "myresult"')
   })
 
   it("fails if the card can't be created", async () => {
@@ -185,7 +185,7 @@ describe('action', () => {
     await main.run()
 
     expect(setFailedMock).toHaveBeenCalledWith(invalidPlanviewResponse)
-    expect(debugMessages).toContain(`pvc_result: ${JSON.stringify(invalidPlanviewResponse)}`)
+    expect(debugMessages).toContain(`pvcResult: ${JSON.stringify(invalidPlanviewResponse)}`)
   })
 
   it('succeeds if the card can be created', async () => {

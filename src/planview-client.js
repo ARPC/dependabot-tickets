@@ -14,7 +14,7 @@ class PlanviewClient {
     this.cardUrl = `${baseUrl}/card`
   }
 
-  #getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url) {
+  #getCreateCardPayload(boardId, laneId, typeId, title, customId, prUrl) {
     return {
       boardId: boardId.toString(),
       laneId: laneId.toString(),
@@ -23,7 +23,7 @@ class PlanviewClient {
       customId: customId.toString(),
       externalLink: {
         label: 'GitHub PR',
-        url: pr_url
+        url: prUrl
       }
     }
   }
@@ -36,6 +36,8 @@ class PlanviewClient {
       }
     } else {
       return {
+        client: 'Planview',
+        status: result.status,
         success: false,
         data: result.data
       }
@@ -44,14 +46,15 @@ class PlanviewClient {
 
   #parseException(e) {
     return {
+      client: 'Planview',
       success: false,
       error: e
     }
   }
 
-  async createCard(boardId, laneId, typeId, title, customId, pr_url) {
+  async createCard(boardId, laneId, typeId, title, customId, prUrl) {
     try {
-      const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, pr_url)
+      const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, prUrl)
       const response = await axios.post(this.cardUrl, payload, this.config)
       return this.#parseResponse(response)
     } catch (e) {

@@ -31,6 +31,8 @@ class FogBugzClient {
       }
     } else {
       return {
+        client: 'FogBugz',
+        status: result.status,
         success: false,
         errors: result.data.errors,
         warnings: result.data.warnings
@@ -40,6 +42,7 @@ class FogBugzClient {
 
   #parseException(e) {
     return {
+      client: 'FogBugz',
       success: false,
       errors: [e.message]
     }
