@@ -1,7 +1,7 @@
 {
   "name": "dependabot-tickets",
   "description": "This action creates a FogBugz and AgilePlace Planview ticket for Dependabot pull requests.",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "author": "Ankura Consulting Group, LLC",
   "private": true,
   "homepage": "https://github.com/actions/javascript-action#readme",
