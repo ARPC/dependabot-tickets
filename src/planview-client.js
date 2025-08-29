@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 class PlanviewClient {
-  constructor(baseUrl, base64Auth) {
+  constructor (baseUrl, base64Auth) {
     this.baseUrl = baseUrl
     this.base64Auth = base64Auth
     this.config = {
@@ -14,7 +14,7 @@ class PlanviewClient {
     this.cardUrl = `${baseUrl}/card`
   }
 
-  #getCreateCardPayload(boardId, laneId, typeId, title, customId, prUrl) {
+  #getCreateCardPayload (boardId, laneId, typeId, title, customId, prUrl) {
     return {
       boardId: boardId.toString(),
       laneId: laneId.toString(),
@@ -28,7 +28,7 @@ class PlanviewClient {
     }
   }
 
-  #parseResponse(result) {
+  #parseResponse (result) {
     if (result.status === 201 && !!result.data.id) {
       return {
         success: true,
@@ -42,14 +42,14 @@ class PlanviewClient {
     }
   }
 
-  #parseException(e) {
+  #parseException (e) {
     return {
       success: false,
       error: e
     }
   }
 
-  async createCard(boardId, laneId, typeId, title, customId, prUrl) {
+  async createCard (boardId, laneId, typeId, title, customId, prUrl) {
     try {
       const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, prUrl)
       const response = await axios.post(this.cardUrl, payload, this.config)

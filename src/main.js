@@ -3,7 +3,7 @@ const github = require('@actions/github')
 const FogBugzClient = require('./fogbugz-client')
 const PlanviewClient = require('./planview-client')
 
-async function run() {
+async function run () {
   core.debug('Running action')
   core.debug(github.context.payload)
   try {
@@ -18,11 +18,11 @@ async function run() {
       return
     }
     if (!payload.pull_request) {
-      core.debug(`not a pr so not running`)
+      core.debug('not a pr so not running')
       return
     }
     if (!users.includes(payload.pull_request.user.login)) {
-      core.debug(`pr was not opened by Dependabot so not running`)
+      core.debug('pr was not opened by Dependabot so not running')
       return
     }
     const fbc = new FogBugzClient(core.getInput('fogbugz_api_url'), core.getInput('fogbugz_token'))
