@@ -33771,7 +33771,7 @@ function wrappy (fn, cb) {
 const axios = __nccwpck_require__(8757)
 
 class FogBugzClient {
-  constructor(baseUrl, token) {
+  constructor (baseUrl, token) {
     this.baseUrl = baseUrl
     this.token = token
     this.config = {
@@ -33781,7 +33781,7 @@ class FogBugzClient {
     }
   }
 
-  #getCreateCasePayload(title, project, text, category) {
+  #getCreateCasePayload (title, project, text, category) {
     return {
       token: this.token,
       cmd: 'new',
@@ -33793,7 +33793,7 @@ class FogBugzClient {
     }
   }
 
-  #parseResponse(result) {
+  #parseResponse (result) {
     if (result.status === 200 && result.data.errors.length === 0) {
       return {
         success: true,
@@ -33815,7 +33815,7 @@ class FogBugzClient {
     }
   }
 
-  async createCase(title, project, text, category) {
+  async createCase (title, project, text, category) {
     try {
       const payload = this.#getCreateCasePayload(title, project, text, category)
       const response = await axios.post(this.baseUrl, payload, this.config)
@@ -33839,7 +33839,7 @@ const github = __nccwpck_require__(5438)
 const FogBugzClient = __nccwpck_require__(4379)
 const PlanviewClient = __nccwpck_require__(374)
 
-async function run() {
+async function run () {
   core.debug('Running action')
   core.debug(github.context.payload)
   try {
@@ -33854,11 +33854,11 @@ async function run() {
       return
     }
     if (!payload.pull_request) {
-      core.debug(`not a pr so not running`)
+      core.debug('not a pr so not running')
       return
     }
     if (!users.includes(payload.pull_request.user.login)) {
-      core.debug(`pr was not opened by Dependabot so not running`)
+      core.debug('pr was not opened by Dependabot so not running')
       return
     }
     const fbc = new FogBugzClient(core.getInput('fogbugz_api_url'), core.getInput('fogbugz_token'))
@@ -33920,7 +33920,7 @@ module.exports = { run }
 const axios = __nccwpck_require__(8757)
 
 class PlanviewClient {
-  constructor(baseUrl, base64Auth) {
+  constructor (baseUrl, base64Auth) {
     this.baseUrl = baseUrl
     this.base64Auth = base64Auth
     this.config = {
@@ -33933,7 +33933,7 @@ class PlanviewClient {
     this.cardUrl = `${baseUrl}/card`
   }
 
-  #getCreateCardPayload(boardId, laneId, typeId, title, customId, prUrl) {
+  #getCreateCardPayload (boardId, laneId, typeId, title, customId, prUrl) {
     return {
       boardId: boardId.toString(),
       laneId: laneId.toString(),
@@ -33947,7 +33947,7 @@ class PlanviewClient {
     }
   }
 
-  #parseResponse(result) {
+  #parseResponse (result) {
     if (result.status === 201 && !!result.data.id) {
       return {
         success: true,
@@ -33961,14 +33961,14 @@ class PlanviewClient {
     }
   }
 
-  #parseException(e) {
+  #parseException (e) {
     return {
       success: false,
       error: e
     }
   }
 
-  async createCard(boardId, laneId, typeId, title, customId, prUrl) {
+  async createCard (boardId, laneId, typeId, title, customId, prUrl) {
     try {
       const payload = this.#getCreateCardPayload(boardId, laneId, typeId, title, customId, prUrl)
       const response = await axios.post(this.cardUrl, payload, this.config)
