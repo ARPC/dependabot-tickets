@@ -46,6 +46,3 @@ jobs:
           JAVASCRIPT_DEFAULT_STYLE: prettier
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_JSCPD: false
-          VALIDATE_JAVASCRIPT_ES: true
-          VALIDATE_MARKDOWN: true
-          VALIDATE_YAML: true
