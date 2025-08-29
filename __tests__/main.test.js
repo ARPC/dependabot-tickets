@@ -1,3 +1,4 @@
+/* eslint-env jest */
 const core = require('@actions/core')
 const github = require('@actions/github')
 
@@ -176,7 +177,7 @@ describe('action', () => {
 
     expect(PlanviewClient).toHaveBeenCalledWith('https://my.pv.com/io', 'myplanviewauth')
     expect(debugMessages).toContain(`Ignoring FB error: ${invalidFogBugzResponse.error}`)
-    expect(debugMessages).toContain(`Creating Planview card for 0`)
+  expect(debugMessages).toContain('Creating Planview card for 0')
   })
 
   it('tries to create the Planview card', async () => {

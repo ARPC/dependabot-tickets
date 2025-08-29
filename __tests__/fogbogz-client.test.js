@@ -1,3 +1,4 @@
+/* eslint-env jest */
 const axios = require('axios')
 const FogBugzClient = require('../src/fogbugz-client')
 

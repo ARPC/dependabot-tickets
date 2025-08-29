@@ -1,3 +1,4 @@
+/* eslint-env jest */
 const axios = require('axios')
 const PlanviewClient = require('../src/planview-client')
 
@@ -16,7 +17,7 @@ describe('createCase', () => {
   const typeId = 456
   const title = 'My Title'
   const customId = 999
-  const pr_url = 'https://github.com/some_pr_url'
+  const prUrl = 'https://github.com/some_pr_url'
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -27,7 +28,7 @@ describe('createCase', () => {
       return validResponse
     })
 
-    await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
+  await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
 
     expect(postMock).toHaveBeenCalledWith(
       'https://example.com/card',
@@ -47,7 +48,7 @@ describe('createCase', () => {
       return validResponse
     })
 
-    await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
+  await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
 
     expect(postMock).toHaveBeenCalledWith(
       expect.anything(),
@@ -71,7 +72,7 @@ describe('createCase', () => {
       return validResponse
     })
 
-    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
+  const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
 
     expect(result.success).toEqual(true)
     expect(result.data).toEqual(validResponse.data)
@@ -86,7 +87,7 @@ describe('createCase', () => {
       return invalidResponse
     })
 
-    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
+  const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
 
     expect(result.success).toEqual(false)
     expect(result.data).toBe(invalidResponse.data)
@@ -101,7 +102,7 @@ describe('createCase', () => {
       return invalidResponse
     })
 
-    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
+  const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
 
     expect(result.success).toEqual(false)
     expect(result.data).toBe(invalidResponse.data)

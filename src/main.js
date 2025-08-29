@@ -3,7 +3,7 @@ const github = require('@actions/github')
 const FogBugzClient = require('./fogbugz-client')
 const PlanviewClient = require('./planview-client')
 
-async function run() {
+async function run () {
   core.debug('Running action')
   core.debug(github.context.payload)
   try {
@@ -34,15 +34,15 @@ async function run() {
     const text = payload.pull_request.body
     const category = core.getInput('fogbugz_category')
     core.debug(`Creating FB case for ${title}`)
-    const fbt_result = await fbc.createCase(title, project, text, category)
-    core.debug(`fbt_result: ${JSON.stringify(fbt_result)}`)
+    const fbtResult = await fbc.createCase(title, project, text, category)
+    core.debug(`fbt_result: ${JSON.stringify(fbtResult)}`)
     const ignoreFbError = core.getBooleanInput('ignore_fb_error')
-    if (fbt_result.success || ignoreFbError) {
-      const fogbugzId = fbt_result.success ? fbt_result.case.ixBug : 0
-      if (fbt_result.success) {
+    if (fbtResult.success || ignoreFbError) {
+      const fogbugzId = fbtResult.success ? fbtResult.case.ixBug : 0
+      if (fbtResult.success) {
         core.setOutput('fogbugz_id', fogbugzId)
       } else {
-        core.debug(`Ignoring FB error: ${fbt_result.error}`)
+        core.debug(`Ignoring FB error: ${fbtResult.error}`)
         core.setOutput('fogbugz_id', fogbugzId)
       }
       const pvc = new PlanviewClient(
@@ -53,7 +53,7 @@ async function run() {
       const laneId = core.getInput('planview_lane_id')
       const typeId = core.getInput('planview_type_id')
       core.debug(`Creating Planview card for ${fogbugzId}`)
-      const pvc_result = await pvc.createCard(
+      const pvcResult = await pvc.createCard(
         boardId,
         laneId,
         typeId,
@@ -61,12 +61,12 @@ async function run() {
         fogbugzId,
         payload.pull_request.html_url
       )
-      core.debug(`pvc_result: ${JSON.stringify(pvc_result)}`)
-      pvc_result.success
-        ? core.setOutput('planview_id', pvc_result.data.id)
-        : core.setFailed(pvc_result)
+      core.debug(`pvc_result: ${JSON.stringify(pvcResult)}`)
+      pvcResult.success
+        ? core.setOutput('planview_id', pvcResult.data.id)
+        : core.setFailed(pvcResult)
     } else {
-      core.setFailed(fbt_result)
+      core.setFailed(fbtResult)
     }
   } catch (error) {
     core.setFailed(error)
