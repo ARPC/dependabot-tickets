@@ -33808,7 +33808,7 @@ class FogBugzClient {
     }
   }
 
-  #parseException(e) {
+  #parseException (e) {
     return {
       success: false,
       errors: [e.message]
