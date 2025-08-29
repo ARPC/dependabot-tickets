@@ -93,6 +93,18 @@ describe('action', () => {
     expect(debugMessages).toContain('pr was synchronize so not running')
   })
 
+  it('runs for reopened PRs', async () => {
+    const reopened = JSON.parse(JSON.stringify(dependabotPr))
+    reopened.action = 'reopened'
+    github.context.payload = reopened
+
+    await main.run()
+
+    expect(debugMessages).toContain('Running action')
+    expect(debugMessages).toContain(reopened)
+    expect(FogBugzClient).toHaveBeenCalled()
+  })
+
   it("ignores actions that aren't prs", async () => {
     github.context.payload = notAPr
 

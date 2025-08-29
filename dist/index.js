@@ -33849,7 +33849,7 @@ async function run () {
       .getInput('users')
       .split(',')
       .map(element => element.trim())
-    if (payload.action !== 'opened') {
+    if (!['opened', 'reopened'].includes(payload.action)) {
       core.debug(`pr was ${payload.action} so not running`)
       return
     }
