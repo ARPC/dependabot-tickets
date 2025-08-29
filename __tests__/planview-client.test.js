@@ -114,7 +114,7 @@ describe('createCase', () => {
       throw error
     })
 
-    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, pr_url)
+    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
 
     expect(result.success).toEqual(false)
     expect(result.error).toBe(error)
