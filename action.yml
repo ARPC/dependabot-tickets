@@ -22,6 +22,10 @@ inputs:
   fogbugz_category:
     description: 'The name of your FogBugz Category'
     required: true
+  ignore_fb_error:
+    description: 'Whether to ignore FogBugz errors'
+    required: false
+    default: 'false'
   planview_api_url:
     description: 'The URL of your Planview API'
     required: true

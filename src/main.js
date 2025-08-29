@@ -36,8 +36,15 @@ async function run() {
     core.debug(`Creating FB case for ${title}`)
     const fbt_result = await fbc.createCase(title, project, text, category)
     core.debug(`fbt_result: ${JSON.stringify(fbt_result)}`)
-    if (fbt_result.success) {
-      core.setOutput('fogbugz_id', fbt_result.case.ixBug)
+    const ignoreFbError = core.getBooleanInput('ignore_fb_error')
+    if (fbt_result.success || ignoreFbError) {
+      const fogbugzId = fbt_result.success ? fbt_result.case.ixBug : 0
+      if (fbt_result.success) {
+        core.setOutput('fogbugz_id', fogbugzId)
+      } else {
+        core.debug(`Ignoring FB error: ${fbt_result.error}`)
+        core.setOutput('fogbugz_id', fogbugzId)
+      }
       const pvc = new PlanviewClient(
         core.getInput('planview_api_url'),
         core.getInput('planview_auth')
@@ -45,13 +52,13 @@ async function run() {
       const boardId = core.getInput('planview_board_id')
       const laneId = core.getInput('planview_lane_id')
       const typeId = core.getInput('planview_type_id')
-      core.debug(`Creating Planview card for ${fbt_result.case.ixBug}`)
+      core.debug(`Creating Planview card for ${fogbugzId}`)
       const pvc_result = await pvc.createCard(
         boardId,
         laneId,
         typeId,
         title,
-        fbt_result.case.ixBug,
+        fogbugzId,
         payload.pull_request.html_url
       )
       core.debug(`pvc_result: ${JSON.stringify(pvc_result)}`)
