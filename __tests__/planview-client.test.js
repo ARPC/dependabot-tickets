@@ -28,7 +28,7 @@ describe('createCase', () => {
       return validResponse
     })
 
-  await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
+    await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
 
     expect(postMock).toHaveBeenCalledWith(
       'https://example.com/card',
@@ -48,7 +48,7 @@ describe('createCase', () => {
       return validResponse
     })
 
-  await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
+    await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
 
     expect(postMock).toHaveBeenCalledWith(
       expect.anything(),
@@ -72,7 +72,7 @@ describe('createCase', () => {
       return validResponse
     })
 
-  const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
+    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
 
     expect(result.success).toEqual(true)
     expect(result.data).toEqual(validResponse.data)
@@ -87,7 +87,7 @@ describe('createCase', () => {
       return invalidResponse
     })
 
-  const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
+    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
 
     expect(result.success).toEqual(false)
     expect(result.data).toBe(invalidResponse.data)
@@ -102,7 +102,7 @@ describe('createCase', () => {
       return invalidResponse
     })
 
-  const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
+    const result = await planviewClient.createCard(boardId, laneId, typeId, title, customId, prUrl)
 
     expect(result.success).toEqual(false)
     expect(result.data).toBe(invalidResponse.data)

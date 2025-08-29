@@ -3,7 +3,7 @@ const github = require('@actions/github')
 const FogBugzClient = require('./fogbugz-client')
 const PlanviewClient = require('./planview-client')
 
-async function run () {
+async function run() {
   core.debug('Running action')
   core.debug(github.context.payload)
   try {
